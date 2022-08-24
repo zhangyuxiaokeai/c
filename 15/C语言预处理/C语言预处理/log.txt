@@ -1,0 +1,10 @@
+file: e:\crt\15\c语言预处理\c语言预处理\预处理.c line: 25 data: Jul 25 2021 time: 01:04:04 i=0
+file: e:\crt\15\c语言预处理\c语言预处理\预处理.c line: 25 data: Jul 25 2021 time: 01:04:04 i=1
+file: e:\crt\15\c语言预处理\c语言预处理\预处理.c line: 25 data: Jul 25 2021 time: 01:04:04 i=2
+file: e:\crt\15\c语言预处理\c语言预处理\预处理.c line: 25 data: Jul 25 2021 time: 01:04:04 i=3
+file: e:\crt\15\c语言预处理\c语言预处理\预处理.c line: 25 data: Jul 25 2021 time: 01:04:04 i=4
+file: e:\crt\15\c语言预处理\c语言预处理\预处理.c line: 25 data: Jul 25 2021 time: 01:04:04 i=5
+file: e:\crt\15\c语言预处理\c语言预处理\预处理.c line: 25 data: Jul 25 2021 time: 01:04:04 i=6
+file: e:\crt\15\c语言预处理\c语言预处理\预处理.c line: 25 data: Jul 25 2021 time: 01:04:04 i=7
+file: e:\crt\15\c语言预处理\c语言预处理\预处理.c line: 25 data: Jul 25 2021 time: 01:04:04 i=8
+file: e:\crt\15\c语言预处理\c语言预处理\预处理.c line: 25 data: Jul 25 2021 time: 01:04:04 i=9

@@ -1,0 +1,7 @@
+﻿  ADD.c
+  text.c
+e:\crt\c算犯法\project1\project1\text.c(261): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  e:\crt\c算犯法\project1\project1\text.c(261): note: 请考虑在格式字符串中使用“%zd”
+e:\crt\c算犯法\project1\project1\text.c(260): warning C4133: “初始化”: 从“char *”到“int *”的类型不兼容
+  正在生成代码...
+  Project1.vcxproj -> E:\CRT\C算犯法\Project1\x64\Debug\Project1.exe

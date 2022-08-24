@@ -1,0 +1,3 @@
+﻿  shuzu1.cpp
+f:\crt\c算犯法\shuzu\shuzu\shuzu1.cpp(207): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int *”
+  shuzu.vcxproj -> F:\CRT\C算犯法\shuzu\Debug\shuzu.exe

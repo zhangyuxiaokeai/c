@@ -1,0 +1,5 @@
+﻿  ADD.c
+  text.c
+e:\crt\c算犯法\project1\project1\text.c(260): warning C4133: “初始化”: 从“char *”到“int *”的类型不兼容
+  正在生成代码...
+ARM\Debug\ADD.obj : fatal error LNK1112: 模块计算机类型“x86”与目标计算机类型“ARM”冲突
