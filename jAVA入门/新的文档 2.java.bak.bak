@@ -1,0 +1,13 @@
+class   VariableTest
+{
+	public static void main(String[] args) 
+	{
+		int myAge =12;
+		int aHe=13;
+		int bHe=12;
+		int cHe=0;
+		cHe=aHe+bHe;
+		System.out.println(myAge);
+		System.out.println(cHe);
+	}
+}
