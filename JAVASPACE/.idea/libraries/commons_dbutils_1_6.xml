@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="commons-dbutils-1.6">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/JDBC数据库连接/lib/commons-dbutils-1.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/commons-dbutils-1.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
