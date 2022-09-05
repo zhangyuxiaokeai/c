@@ -1,0 +1,13 @@
+<script>
+//对象拷贝
+let person1={"name":"lucy","age":12}
+let person2={...person1}//此方法不适用低版本浏览器
+console.log(person2)
+
+
+//合并对象
+let name={name:'mary'}
+let age={age:20}
+let p2={...name,...age}
+console.logp2
+</script>
