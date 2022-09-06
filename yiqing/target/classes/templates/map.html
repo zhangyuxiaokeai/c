@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--${}   OGNL表达式
+动静结合的模板yinqing
+thymeleaf的语法都是通过指令来执行的 th：*
+-->
+<div th:text="${name}" >名称</div>
+<div th:text="${pation.getProvince()}"></div>
+<div th:text="${pation.getCountry()}"></div>
+
+
+<!--for循环-->
+<div th:each="item : ${arry}">
+
+   <span th:text="${item}"></span>
+
+</div>
+<!--
+if条件判断-->
+<div th:if="true">
+    <span>伞兵一号准备就位 </span>
+
+</div>
+</body>
+</html>

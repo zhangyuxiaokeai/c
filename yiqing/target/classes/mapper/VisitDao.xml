@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.yiqing.dao.VisitDao">
+
+    <resultMap type="com.qf.yiqing.entity.Visit" id="VisitMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="count" column="count" jdbcType="INTEGER"/>
+        <result property="ip" column="ip" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="sumCount" resultType="java.lang.Integer">
+        select sum(count) from visit
+    </select>
+    <select id="queryByIp" resultMap="VisitMap">
+        select * from visit where ip=#{ip}
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="VisitMap">
+        select id,
+               count,
+               ip
+        from visit
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="VisitMap">
+        select
+        id, count, ip
+        from visit
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="count != null">
+                and count = #{count}
+            </if>
+            <if test="ip != null and ip != ''">
+                and ip = #{ip}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from visit
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="count != null">
+                and count = #{count}
+            </if>
+            <if test="ip != null and ip != ''">
+                and ip = #{ip}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into visit(count, ip)
+        values (#{count}, #{ip})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into visit(count, ip)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.count}, #{entity.ip})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into visit(count, ip)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.count}, #{entity.ip})
+        </foreach>
+        on duplicate key update
+        count = values(count),
+        ip = values(ip)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update visit
+        <set>
+            <if test="count != null">
+                count = #{count},
+            </if>
+            <if test="ip != null and ip != ''">
+                ip = #{ip},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from visit
+        where id = #{id}
+    </delete>
+
+</mapper>
+
