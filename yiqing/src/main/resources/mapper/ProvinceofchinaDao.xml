@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.yiqing.dao.ProvinceofchinaDao">
+
+    <resultMap type="com.qf.yiqing.entity.Provinceofchina" id="ProvinceofchinaMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="province" column="province" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="confirm" column="confirm" jdbcType="INTEGER"/>
+        <result property="nowconfirm" column="nowConfirm" jdbcType="INTEGER"/>
+        <result property="suspect" column="suspect" jdbcType="INTEGER"/>
+        <result property="dead" column="dead" jdbcType="INTEGER"/>
+        <result property="heal" column="heal" jdbcType="INTEGER"/>
+        <result property="deadrate" column="deadRate" jdbcType="NUMERIC"/>
+        <result property="healrate" column="healRate" jdbcType="NUMERIC"/>
+    </resultMap>
+
+<!--  查询治愈率  -->
+<select id="queryXiaolv" resultType="com.qf.yiqing.entity.xiaolv">
+    select provinceofchina.name,healRate as value  from provinceofchina ORDER BY healRate desc limit 10
+</select>
+
+    <select id="queryNameAndNow" resultType="com.qf.yiqing.entity.MapData">
+    select provinceofchina.name,nowConfirm as value  from provinceofchina
+    </select>
+
+    <select id="queryAll" resultMap="ProvinceofchinaMap">
+        select * from provinceofchina
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ProvinceofchinaMap">
+        select id,
+               province,
+               name,
+               confirm,
+               nowConfirm,
+               suspect,
+               dead,
+               heal,
+               deadRate,
+               healRate
+        from provinceofchina
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ProvinceofchinaMap">
+        select
+        id, province, name, confirm, nowConfirm, suspect, dead, heal, deadRate, healRate
+        from provinceofchina
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="province != null and province != ''">
+                and province = #{province}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="confirm != null">
+                and confirm = #{confirm}
+            </if>
+            <if test="nowconfirm != null">
+                and nowConfirm = #{nowconfirm}
+            </if>
+            <if test="suspect != null">
+                and suspect = #{suspect}
+            </if>
+            <if test="dead != null">
+                and dead = #{dead}
+            </if>
+            <if test="heal != null">
+                and heal = #{heal}
+            </if>
+            <if test="deadrate != null">
+                and deadRate = #{deadrate}
+            </if>
+            <if test="healrate != null">
+                and healRate = #{healrate}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from provinceofchina
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="province != null and province != ''">
+                and province = #{province}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="confirm != null">
+                and confirm = #{confirm}
+            </if>
+            <if test="nowconfirm != null">
+                and nowConfirm = #{nowconfirm}
+            </if>
+            <if test="suspect != null">
+                and suspect = #{suspect}
+            </if>
+            <if test="dead != null">
+                and dead = #{dead}
+            </if>
+            <if test="heal != null">
+                and heal = #{heal}
+            </if>
+            <if test="deadrate != null">
+                and deadRate = #{deadrate}
+            </if>
+            <if test="healrate != null">
+                and healRate = #{healrate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into provinceofchina(province, name, confirm, nowConfirm, suspect, dead, heal, deadRate, healRate)
+        values (#{province}, #{name}, #{confirm}, #{nowconfirm}, #{suspect}, #{dead}, #{heal}, #{deadrate}, #{healrate})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into provinceofchina(province, name, confirm, nowConfirm, suspect, dead, heal, deadRate, healRate)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.province}, #{entity.name}, #{entity.confirm}, #{entity.nowconfirm}, #{entity.suspect},
+            #{entity.dead}, #{entity.heal}, #{entity.deadrate}, #{entity.healrate})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into provinceofchina(province, name, confirm, nowConfirm, suspect, dead, heal, deadRate, healRate)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.province}, #{entity.name}, #{entity.confirm}, #{entity.nowconfirm}, #{entity.suspect},
+            #{entity.dead}, #{entity.heal}, #{entity.deadrate}, #{entity.healrate})
+        </foreach>
+        on duplicate key update
+        province = values(province),
+        name = values(name),
+        confirm = values(confirm),
+        nowConfirm = values(nowConfirm),
+        suspect = values(suspect),
+        dead = values(dead),
+        heal = values(heal),
+        deadRate = values(deadRate),
+        healRate = values(healRate)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update provinceofchina
+        <set>
+            <if test="province != null and province != ''">
+                province = #{province},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="confirm != null">
+                confirm = #{confirm},
+            </if>
+            <if test="nowconfirm != null">
+                nowConfirm = #{nowconfirm},
+            </if>
+            <if test="suspect != null">
+                suspect = #{suspect},
+            </if>
+            <if test="dead != null">
+                dead = #{dead},
+            </if>
+            <if test="heal != null">
+                heal = #{heal},
+            </if>
+            <if test="deadrate != null">
+                deadRate = #{deadrate},
+            </if>
+            <if test="healrate != null">
+                healRate = #{healrate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from provinceofchina
+        where id = #{id}
+    </delete>
+
+</mapper>
+

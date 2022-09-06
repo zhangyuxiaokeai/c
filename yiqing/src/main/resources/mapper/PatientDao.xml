@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间，让xml文件和dao中的接口关联-->
+<mapper namespace="com.qf.yiqing.dao.PatientDao">
+<!-- result 保证数据的映射-->
+    <resultMap type="com.qf.yiqing.entity.Patient" id="PatientMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="country" column="country" jdbcType="VARCHAR"/>
+        <result property="province" column="province" jdbcType="VARCHAR"/>
+        <result property="patientName" column="patient_name" jdbcType="VARCHAR"/>
+        <result property="patientType" column="patient_type" jdbcType="VARCHAR"/>
+        <result property="patientState" column="patient_state" jdbcType="VARCHAR"/>
+        <result property="createDatetime" column="create_datetime" jdbcType="TIMESTAMP"/>
+        <result property="suretime" column="suretime" jdbcType="TIMESTAMP"/>
+        <result property="hardtime" column="hardtime" jdbcType="TIMESTAMP"/>
+        <result property="curetime" column="curetime" jdbcType="TIMESTAMP"/>
+        <result property="dietime" column="dietime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+<!--
+查询单个
+id="queryByid"  保证和接口中的一致
+resultType="com.qf.yiqing.entity.Patient" 只能在数据库字段和实体类字段一样时使用
+resultMap="映射关系"
+-->
+<!--    <select id="queryByid" resultType="com.qf.yiqing.entity.Patient">-->
+<!--        -->
+<!--    </select>-->
+<!--parameterType="" 规定传入参数的数据类型,-->
+        <select id="queryById" resultMap="PatientMap">
+            select * from patient where id=#{id}
+        </select>
+
+
+    <!--查询单个-->
+<!--    <select id="queryById" resultMap="PatientMap">-->
+<!--        select id,-->
+<!--               country,-->
+<!--               province,-->
+<!--               patient_name,-->
+<!--               patient_type,-->
+<!--               patient_state,-->
+<!--               create_datetime,-->
+<!--               suretime,-->
+<!--               hardtime,-->
+<!--               curetime,-->
+<!--               dietime-->
+<!--        from patient-->
+<!--        where id = #{id}-->
+<!--    </select>-->
+
+<!--  注   -->
+<!--    <select id="queryById" resultMap="PatientMap">-->
+<!--        -->
+<!--    </select>-->
+<!--    -->
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PatientMap">
+        select
+        id, country, province, patient_name, patient_type, patient_state, create_datetime, suretime, hardtime, curetime,
+        dietime
+        from patient
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="country != null and country != ''">
+                and country = #{country}
+            </if>
+            <if test="province != null and province != ''">
+                and province = #{province}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="patientType != null and patientType != ''">
+                and patient_type = #{patientType}
+            </if>
+            <if test="patientState != null and patientState != ''">
+                and patient_state = #{patientState}
+            </if>
+            <if test="createDatetime != null">
+                and create_datetime = #{createDatetime}
+            </if>
+            <if test="suretime != null">
+                and suretime = #{suretime}
+            </if>
+            <if test="hardtime != null">
+                and hardtime = #{hardtime}
+            </if>
+            <if test="curetime != null">
+                and curetime = #{curetime}
+            </if>
+            <if test="dietime != null">
+                and dietime = #{dietime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from patient
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="country != null and country != ''">
+                and country = #{country}
+            </if>
+            <if test="province != null and province != ''">
+                and province = #{province}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="patientType != null and patientType != ''">
+                and patient_type = #{patientType}
+            </if>
+            <if test="patientState != null and patientState != ''">
+                and patient_state = #{patientState}
+            </if>
+            <if test="createDatetime != null">
+                and create_datetime = #{createDatetime}
+            </if>
+            <if test="suretime != null">
+                and suretime = #{suretime}
+            </if>
+            <if test="hardtime != null">
+                and hardtime = #{hardtime}
+            </if>
+            <if test="curetime != null">
+                and curetime = #{curetime}
+            </if>
+            <if test="dietime != null">
+                and dietime = #{dietime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+<!--    主键回调（用于主键自增的情况）-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into patient(country, province, patient_name, patient_type, patient_state, create_datetime, suretime,
+                            hardtime, curetime, dietime)
+        values (#{country}, #{province}, #{patientName}, #{patientType}, #{patientState}, #{createDatetime},
+                #{suretime}, #{hardtime}, #{curetime}, #{dietime})
+    </insert>
+
+
+
+
+
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into patient(country, province, patient_name, patient_type, patient_state, create_datetime, suretime,
+        hardtime, curetime, dietime)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.country}, #{entity.province}, #{entity.patientName}, #{entity.patientType},
+            #{entity.patientState}, #{entity.createDatetime}, #{entity.suretime}, #{entity.hardtime},
+            #{entity.curetime}, #{entity.dietime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into patient(country, province, patient_name, patient_type, patient_state, create_datetime, suretime,
+        hardtime, curetime, dietime)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.country}, #{entity.province}, #{entity.patientName}, #{entity.patientType},
+            #{entity.patientState}, #{entity.createDatetime}, #{entity.suretime}, #{entity.hardtime},
+            #{entity.curetime}, #{entity.dietime})
+        </foreach>
+        on duplicate key update
+        country = values(country),
+        province = values(province),
+        patient_name = values(patient_name),
+        patient_type = values(patient_type),
+        patient_state = values(patient_state),
+        create_datetime = values(create_datetime),
+        suretime = values(suretime),
+        hardtime = values(hardtime),
+        curetime = values(curetime),
+        dietime = values(dietime)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update patient
+        <set>
+            <if test="country != null and country != ''">
+                country = #{country},
+            </if>
+            <if test="province != null and province != ''">
+                province = #{province},
+            </if>
+            <if test="patientName != null and patientName != ''">
+                patient_name = #{patientName},
+            </if>
+            <if test="patientType != null and patientType != ''">
+                patient_type = #{patientType},
+            </if>
+            <if test="patientState != null and patientState != ''">
+                patient_state = #{patientState},
+            </if>
+            <if test="createDatetime != null">
+                create_datetime = #{createDatetime},
+            </if>
+            <if test="suretime != null">
+                suretime = #{suretime},
+            </if>
+            <if test="hardtime != null">
+                hardtime = #{hardtime},
+            </if>
+            <if test="curetime != null">
+                curetime = #{curetime},
+            </if>
+            <if test="dietime != null">
+                dietime = #{dietime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from patient
+        where id = #{id}
+    </delete>
+
+</mapper>
+
